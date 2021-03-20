@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 import MOCK_DATA from './MOCK_DATA.json';
-import { COLUMNS } from './columns';
+import { COLUMNS, GROUPED_COLUMNS } from './columns';
 import './table.css'
 
 //create basic table that imports columns and data from mockaroo API
 export const BasicTable = () => {
-  const columns = useMemo(() => COLUMNS, []);
+  //changing COLUMNS to GROUPED COLUMNS
+  const columns = useMemo(() => GROUPED_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
 
   const tableInstance = useTable({
@@ -24,7 +25,7 @@ export const BasicTable = () => {
     prepareRow,
   } = tableInstance;
 
-  //table HTML
+  //table HTML with footer and header groups
   return (
     <table {...getTableProps()}>
       <thead>

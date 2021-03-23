@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
-import { useTable } from 'react-table';
-import MOCK_DATA from './MOCK_DATA.json';
-import { COLUMNS, GROUPED_COLUMNS } from './columns';
+import React, { useMemo } from 'react'
+import { useTable } from 'react-table'
+import MOCK_DATA from './MOCK_DATA.json'
+import { COLUMNS, GROUPED_COLUMNS } from './columns'
 import './table.css'
 
 //create basic table that imports columns and data from mockaroo API

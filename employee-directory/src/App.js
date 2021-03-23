@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { BasicTable } from './components/basictable'
+import { BasicTable } from './components/BasicTable'
 
 function App () {
   return (

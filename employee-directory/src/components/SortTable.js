@@ -1,25 +1,14 @@
-import React, { useMemo } from 'react'
-import { useTable } from 'react-table'
-import MOCK_DATA from './MOCK_DATA.json'
-import { COLUMNS } from './Columns'
-import './table.css'
+//paste starting code from BasicTable
+import React, { useMemo } from 'react';
+import { useTable, useSortBy } from "react-table";
+import MOCK_DATA from "./MOCK_DATA.json";
+import { COLUMNS } from "./columns";
+import "./table.css";
 
-
-
-//create basic table that imports columns and data from mockaroo API
-export const BasicTable = () => {
-  //changing COLUMNS to GROUPED COLUMNS
+export const SortTable = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
-  console.log(MOCK_DATA);
-  //MOCK_DATA will console log, but will not render in page.
 
-  // const tableInstance = useTable({
-  //   columns,
-  //   data,
-  // });
-
-  //function from useTable Hook
   const {
     getTableProps,
     getTableBodyProps,
@@ -27,10 +16,13 @@ export const BasicTable = () => {
     footerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-  });
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useSortBy
+  );
 
   //table HTML with footer and header groups
   return (
@@ -39,7 +31,12 @@ export const BasicTable = () => {
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render("Header")}
+                <span>
+                  {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : " "}
+                </span>
+              </th>
             ))}
           </tr>
         ))}
@@ -57,13 +54,13 @@ export const BasicTable = () => {
         })}
       </tbody>
       <tfoot>
-        {footerGroups.map(footerGroup => (
-            <tr {...footerGroup.getFooterGroupProps()}>
-              {footerGroup.headers.map(column => (
-                  <td {...column.getFooterProps}>{column.render('Footer')}</td>
-              ))}
-            </tr>
-          ))}
+        {footerGroups.map((footerGroup) => (
+          <tr {...footerGroup.getFooterGroupProps()}>
+            {footerGroup.headers.map((column) => (
+              <td {...column.getFooterProps}>{column.render("Footer")}</td>
+            ))}
+          </tr>
+        ))}
       </tfoot>
     </table>
   );
